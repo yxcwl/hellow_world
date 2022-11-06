@@ -1,0 +1,151 @@
+//level 1
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	var arr string
+	fmt.Println("请输入测试字符串")
+	fmt.Scanln(&arr) //将字符串输入到其中
+	arr1 := arr
+	arr2 := []rune(arr1) //将字符串进行拷贝后对单个字符进行对比
+
+	sum := 0
+	for i := 0; i < len(arr2)/2; i++ { //确定对比次数
+		if arr2[i] == arr2[len(arr2)-1-i] {
+			sum = 1
+		} else {
+			sum = 0
+		} //通过sum值来判断是否为回文字
+	}
+	if sum == 0 {
+		fmt.Println("false")
+	}
+	if sum == 1 {
+		fmt.Println(arr[0 : len(arr)/2]) //切片显示一半的回文字
+	}
+}
+
+// level 2
+/*package main
+
+import (
+	"fmt"
+)
+
+func ADD(a, b int) int {
+	return a + b
+}
+func SUB(a, b int) int {
+	return a - b
+}
+func MUL(a, b int) int {
+	return a * b
+}
+func DIV(a, b int) int {
+	return a / b
+} //定义计算的函数
+func getmain() int { //定义第一次计算（与后面的计算不同）
+	var a, b int
+	var cmd string
+
+	fmt.Println("请输入要计算的运算,数字与运算符之间有空格")
+	fmt.Scanf("%d  %s %d", &a, &cmd, &b)
+
+	var i int
+
+	if cmd == "+" { //通过判断来确定计算方式
+		i = ADD(a, b)
+	}
+	if cmd == "-" {
+		i = SUB(a, b)
+	}
+	if cmd == "*" {
+		i = MUL(a, b)
+	}
+	if cmd == "/" {
+		i = DIV(a, b)
+	}
+	//fmt.Println(i)
+	return i
+}
+func getmain2(a int) int { //定义后面再次输入的计算
+	var b, i int
+
+	var cmd1, cmd2 string
+	fmt.Scanf("%s", &cmd2)        //第一次赋予来避免之前回车使判断出错
+	fmt.Scanf("%s %d", &cmd1, &b) //第二次赋值来真正赋有意义值进行运算
+
+	if cmd1 == "+" {
+		i = ADD(a, b)
+	}
+	if cmd1 == "-" {
+		i = SUB(a, b)
+	}
+	if cmd1 == "*" {
+		i = MUL(a, b)
+	}
+	if cmd1 == "/" {
+		i = DIV(a, b)
+	}
+
+	return i
+}
+
+func main() {
+	var i int
+	var arr [100]int //定义了数组可存放100个数
+	d := 0
+	i = getmain()
+
+	for {
+
+		arr[d] = i
+		d++
+		for j := 0; j < d; j++ {
+			fmt.Printf("%d ", arr[j]) //通过数组来打印
+
+		}
+		fmt.Println("\n")
+		i = getmain2(i) //通过循环来不断获得新的值
+	}
+}*/
+
+// level 3
+package main
+
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
+
+func a(arr [100]int) {
+	var i, t int
+	for i = 0; i < 100; i++ {
+		for t = 0; t < 99-i; t++ {
+			if arr[t] > arr[t+1] {
+				temp := arr[t]
+				arr[t] = arr[t+1]
+				arr[t+1] = temp
+
+			}
+		}
+	} //冒泡排序
+	for i = 0; i < 100; i++ {
+		fmt.Printf("%d ", arr[i])
+	} //打印出排好后的数
+}
+
+func main() {
+
+	var arr [100]int
+	var i int
+	rand.Seed(time.Now().Unix())
+	for i = 0; i < 100; i++ {
+		arr[i] = rand.Intn(100) //通过循环来获得100个随机数
+	}
+	a(arr) //调用函数排列并打印
+}
